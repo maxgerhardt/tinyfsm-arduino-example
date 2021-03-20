@@ -1,20 +1,20 @@
 #include <Arduino.h>
 #include "fsmlist.hpp"
 
+Call call;
+FloorSensor sensor;
+
 void setup()
 {
   Serial.begin(115200);
   Serial.setTimeout(10000);
   Serial.println("c=Call, f=FloorSensor, a=Alarm, q=Quit ? ");
+
+  fsm_list::start();
 }
 
 void loop()
 {
-  fsm_list::start();
-
-  Call call;
-  FloorSensor sensor;
-
   String answer = "";
   if (Serial.available() > 0)
   {
