@@ -18,7 +18,9 @@ void loop()
   String answer = "";
   if (Serial.available() > 0)
   {
-    char c = (char)Serial.read();
+    // read fill string, then command
+    answer = Serial.readStringUntil('\n');
+    char c = answer.charAt(0);
 
     switch (c)
     {
@@ -43,5 +45,6 @@ void loop()
     default:
       Serial.println("Invalid input");
     };
+    Serial.println("c=Call, f=FloorSensor, a=Alarm, q=Quit ? ");
   }
 }
