@@ -20,6 +20,12 @@ void loop()
   {
     // read fill string, then command
     answer = Serial.readStringUntil('\n');
+    //remove newline char
+    answer = answer.substring(0, answer.length() - 1);
+    if(answer.length() != 1) {
+      Serial.println("Command must only be one character long, not " + String(answer.length()));
+      return;
+    }
     char c = answer.charAt(0);
 
     switch (c)
@@ -41,9 +47,12 @@ void loop()
       break;
     case 'q':
       Serial.println("Thanks for playing!");
+      fsm_list::start();
       //return 0;
+      break;
     default:
-      Serial.println("Invalid input");
+      Serial.println("Invalid input: \"" + answer + "\"");
+      break;
     };
     Serial.println("c=Call, f=FloorSensor, a=Alarm, q=Quit ? ");
   }
